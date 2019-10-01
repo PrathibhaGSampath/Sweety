@@ -1,0 +1,29 @@
+<div class="">
+  <h1>New Blood Glucose Reading</h1>
+
+  <%= form_for(@blood_glucose_reading, as: :blood_glucose, :url => {:action => "update"} ) do |f| %>
+
+    <h3>
+      Timing: <%= DateTime.now.strftime("%d %b %Y %I:%M%p") %>
+    </h3>
+    
+    <% present(@blood_glucose_reading, BloodGlucoseLevelPresenter) do |blood_glucose|%>
+      <p>
+        <%= f.label :glucose_level, 'Blood Glucose Level: ' %>
+        <%= f.number_field :level, value: blood_glucose.level, min: 10 %>
+      </p>
+
+      <p>
+        <%= f.label :entered_at, 'Entered at: ' %>
+        <%= f.datetime_select :checked_at, value: blood_glucose.date_time %>
+      </p>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit "Confirm" %> 
+    </div>
+
+  <% end %>
+     <br/>
+    <%= button_to 'Cancel', :back, method: :get %>
+</div>

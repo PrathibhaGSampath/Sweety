@@ -1,0 +1,12 @@
+<nav>
+  <% if doctor_signed_in? %>
+      <h1> Welcome <%= current_doctor.email %></h1>
+      <%= link_to 'Log out', destroy_doctor_session_path, method: :delete %>
+  <% elsif patient_signed_in? %>
+      <h1> Welcome <%= current_patient.email %></h1>
+      <%= link_to 'Log out', destroy_patient_session_path, method: :delete %>
+  <% else %>
+      <%= link_to 'Log in as Doctor', new_doctor_session_path, method: :post %><br/>
+      <%= link_to 'Log in as Patient', new_patient_session_path, method: :post %>
+  <% end %>
+</nav>

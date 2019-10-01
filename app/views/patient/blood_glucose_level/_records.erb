@@ -1,0 +1,27 @@
+<% if records.blank? %>
+	<h2>No records to display</h2>
+<% else %>
+	<% records.each do |month, tasks| %>
+		<%=  Date::MONTHNAMES[month] %>
+		<table>
+			<thead>
+				<th> Blood Glucose Level </th>
+				<th> DateTime </th>
+			</thead>
+			<tbody>    
+				<% tasks.each do |record| %>
+					<% present(record, BloodGlucoseLevelPresenter) do |sugar_reading| %>
+						<tr>
+							<td><%= sugar_reading.level %></td>
+							<td><%= sugar_reading.date_time %></td>
+							<% if current_patient.present? %>
+								<td> <%= button_to "Edit", edit_patient_blood_glucose_level_url(record.id), method: :get %> </td>
+							<% end %>
+						</tr>
+					<% end %>
+				<% end %>
+
+			</tbody>
+		</table>
+	<% end %> 
+<% end %>
